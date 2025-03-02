@@ -1,0 +1,89 @@
+<div id="content-wrapper" class="d-flex flex-column ">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Sửa danh mục</li>
+        </ol>
+      </div>
+
+
+      <div class="row">
+        <!-- Form Add Product -->
+        <div class="col-lg-7 m-auto">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Form Sửa Danh Mục</h6>
+            </div>
+            <div class="card-body">
+              <form action="/admin/category/update/<%= calog.id %>?_method=PATCH" method="POST"
+                enctype="multipart/form-data" class="d-flex justify-content-between col-12">
+                <div class="row">
+                  <img src="/assets/uploads/categories/<%= calog.image %>" alt="" width="250px" height="250px"
+                    class="m-auto">
+                  <div class="form-group col-12">
+                    <label for="name">Tên danh mục</label>
+                    <input type="text" class="form-control <%= errors.name ? 'is-invalid' : '' %>" name="name" id="name"
+                      value="<%= calog.name %>">
+                    <% if (errors.name) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.name %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="status">Trạng thái</label>
+                    <select class="form-control" name="status" id="status">
+                      <option value="1" <%=calog.status===1 ? 'selected' : '' %>>Hiển thị</option>
+                      <option value="0" <%=calog.status===0 ? 'selected' : '' %>>Ẩn</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="image">Ảnh danh mục</label>
+                    <input type="file" class="form-control <%= errors.image ? 'is-invalid' : '' %>" name="image"
+                      id="image" accept="image/*">
+                    <% if (errors.image) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.image %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <input type="hidden" name="image_old" value="<%= calog.image %>">
+
+                  <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Sửa danh mục</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>copyright &copy;
+            <script> document.write(new Date().getFullYear()); </script> - developed by
+            <b><a href="https://indrijunanda.gitlab.io/" target="_blank">Kha Thi Bao Duyen</a></b>
+          </span>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer -->
+  </div>
+</div>
