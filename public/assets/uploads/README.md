@@ -1,0 +1,1 @@
+Chứa các file/ thư mục do user upload (Vd: Hình ảnh sản phẩm, avatar...)
