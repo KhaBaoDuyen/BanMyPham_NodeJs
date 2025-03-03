@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
    }
 });
 
-async function sendOrderEmail(email, name, phone, address, totalPrice, totalWeight) {
+async function sendOrderEmail(email, name, phone, address, totalPrice) {
    const subject = 'Thông báo đơn hàng thành công';
    const html = `
 <!DOCTYPE html>
@@ -82,10 +82,6 @@ async function sendOrderEmail(email, name, phone, address, totalPrice, totalWeig
       <tr>
          <th>Địa chỉ</th>
          <td>${address}</td>
-      </tr>
-      <tr>
-         <th>Tổng trọng lượng</th>
-         <td>${totalWeight} kg</td>
       </tr>
       <tr>
          <th>Tình trạng đơn hàng</th>

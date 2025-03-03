@@ -1,5 +1,5 @@
 <div class="checkout-page col-10 m-auto" id="checkout">
-   <form action="/check" method="post" class="container container_checkout m-auto">
+   <form action="/create" method="post" class="container container_checkout m-auto">
       <input type="hidden" name="method" value="POST">
 
       <div class="content-right col-12 mb-3">
@@ -76,8 +76,8 @@
          <h3>Địa chỉ nhận hàng</h3>
          <div class="col-7 row">
             <div class="form-group col-6">
-               <label for="name">Tên</label>
-               <input type="text" name="name" id="name" class="form-control" value="">
+               <label for="name">Tên người nhận</label>
+               <input type="text" name="name" id="name" class="form-control" value="" placeholder="Vui longf nhập tên người nhận">
                <span class="error-message text-danger" id="error-name"></span>
             </div>
 
@@ -89,7 +89,7 @@
             </div>
 
             <div class="form-group">
-               <label for="email">Email</label>
+               <label for="email">Email nhận thông báo</label>
                <input type="text" placeholder="Vui lòng nhập địa chỉ email" name="email" id="email" class="form-control"
                   value="">
                <span class="error-message text-danger" id="error-email"></span>
@@ -124,7 +124,7 @@
                <label for="address">Địa chỉ cụ thể</label>
                <input type="text" placeholder="Nhập số nhà, đường..." name="addressDetail" id="addressDetail"
                   class="form-control">
-               <input type="" placeholder="" name="address" id="address" class="m-0 p-0 border-0 bg-white" value="">
+               <input type="" placeholder="" name="address" id="address" class="m-0 p-0 border-0 bg-white" value="" style="opacity: 0;">
 
             </div>
 

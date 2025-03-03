@@ -2,7 +2,7 @@ const CategoryModel = require("../../models/CategoryModel");
 const validatorCategory = require("../../validator/validateCategory");
 class CategoryController {
 
-   static async get(req, res) {
+   static async getTrash(req, res) {
       try {
          const categories = await CategoryModel.findAll();
          res.status(200).render("Admin/page/trash", {
@@ -18,7 +18,7 @@ class CategoryController {
       }
    }
 
-   static async getTrash(req, res) {
+   static async get(req, res) {
       try {
          const categories = await CategoryModel.findAll();
          res.status(200).render("Admin/page/Categories/category", {

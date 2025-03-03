@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 const crypto = require('crypto');
+
 const VNPAY_CONFIG = {
    vnpUrl: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
    vnpTmnCode: 'LQF1OTAU',
@@ -10,7 +11,7 @@ class VnPayService {
    static createPaymentUrl(txnRef, finalTotal, returnUrl, req) {
       const ipAddr = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
       const expireDate = moment().tz('Asia/Ho_Chi_Minh').add(5, 'minutes').format('YYYYMMDDHHmmss');
-
+     
       const vnpParams = {
          vnp_Version: '2.1.0',
          vnp_Command: 'pay',
@@ -20,7 +21,7 @@ class VnPayService {
          vnp_CurrCode: 'VND',
          vnp_IpAddr: ipAddr,
          vnp_Locale: 'vn',
-         vnp_OrderInfo: `Thanh toán đơn hàng`,
+         vnp_OrderInfo: `Thanh toán đơn hàng ${txnRef}`,
          vnp_OrderType: 'Thanh toán VNPay',
          vnp_ReturnUrl: returnUrl,
          vnp_ExpireDate: expireDate,
