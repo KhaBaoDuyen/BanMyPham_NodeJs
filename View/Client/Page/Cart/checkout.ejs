@@ -74,58 +74,91 @@
 
       <div class="content-left col-12 row m-auto">
          <h3>Địa chỉ nhận hàng</h3>
-         <div class="col-7 row">
+         <div class="col-7 row"> <input type="" placeholder="" name="address" id="address"
+               class="m-0 p-0 border-0 bg-white" value="" style="opacity: 0;">
+
             <div class="form-group col-6">
+
                <label for="name">Tên người nhận</label>
-               <input type="text" name="name" id="name" class="form-control" value="" placeholder="Vui longf nhập tên người nhận">
-               <span class="error-message text-danger" id="error-name"></span>
+               <input type="text" name="name" id="name" class="form-control <%= errors.name ? 'is-invalid' : '' %>"
+                  value="<%= order.name || '' %>" placeholder="Vui lòng nhập tên người nhận">
+               <% if (errors.name) { %>
+                  <div class="invalid-feedback">
+                     <%= errors.name %>
+                  </div>
+                  <% } %>
             </div>
 
             <div class="form-group col-6">
                <label for="phone">Số điện thoại</label>
-               <input type="text" placeholder="Vui lòng nhập số điện thoại" name="phone" id="phone" class="form-control"
-                  value="">
-               <span class="error-message text-danger" id="error-phone"></span>
+               <input type="text" placeholder="Vui lòng nhập số điện thoại" name="phone" id="phone"
+                  class="form-control <%= errors.phone ? 'is-invalid' : '' %>" value="<%= order.phone || '' %>">
+               <% if (errors.phone) { %>
+                  <div class="invalid-feedback">
+                     <%= errors.phone %>
+                  </div>
+                  <% } %>
             </div>
 
             <div class="form-group">
-               <label for="email">Email nhận thông báo</label>
-               <input type="text" placeholder="Vui lòng nhập địa chỉ email" name="email" id="email" class="form-control"
-                  value="">
-               <span class="error-message text-danger" id="error-email"></span>
+               <label for="email">Email nhận thông báo ( không bắt buộc )</label>
+               <input type="text" placeholder="Vui lòng nhập nhập địa chỉ email " name="email" id="email"
+                  class="form-control <%= errors.email ? 'is-invalid' : '' %>" value="<%= order.email || '' %>">
+               <% if (errors.email) { %>
+                  <div class="invalid-feedback">
+                     <%= errors.email %>
+                  </div>
+                  <% } %>
             </div>
 
             <div class="form-group col-4">
                <label for="province">Tỉnh/Thành phố</label>
-               <select id="province" class="form-control" name="province">
+               <select id="province" class="form-control <%= errors.province ? 'is-invalid' : '' %>" name="province">
                   <option value="">Chọn Tỉnh/Thành phố</option>
                </select>
-               <span class="error-message text-danger" id="error-province"></span>
+               <% if (errors.province) { %>
+                  <span class="error-message text-danger" id="error-province">
+                     <%= errors.province %>
+                  </span>
+                  <% } %>
             </div>
 
             <div class="form-group col-4">
                <label for="district">Quận/Huyện</label>
-               <select id="district" class="form-control" name="district" disabled>
+               <select id="district" class="form-control <%= errors.district ? 'is-invalid' : '' %>" name="district"
+                  disabled>
                   <option value="">Chọn Quận/Huyện</option>
                </select>
-               <span class="error-message text-danger" id="error-district"></span>
+               <% if (errors.district) { %>
+                  <span class="error-message text-danger" id="error-district">
+                     <%= errors.district %>
+                  </span>
+                  <% } %>
             </div>
 
             <div class="form-group col-4">
                <label for="ward">Phường/Xã</label>
-               <select id="ward" class="form-control" name="ward" disabled>
+               <select id="ward" class="form-control <%= errors.ward ? 'is-invalid' : '' %>" name="ward" disabled>
                   <option value="">Chọn Phường/Xã</option>
                </select>
-               <span class="error-message text-danger" id="error-ward"></span>
+               <% if (errors.ward) { %>
+                  <span class="error-message text-danger" id="error-ward">
+                     <%= errors.ward %>
+                  </span>
+                  <% } %>
             </div>
 
 
             <div class="form-group">
                <label for="address">Địa chỉ cụ thể</label>
                <input type="text" placeholder="Nhập số nhà, đường..." name="addressDetail" id="addressDetail"
-                  class="form-control">
-               <input type="" placeholder="" name="address" id="address" class="m-0 p-0 border-0 bg-white" value="" style="opacity: 0;">
+                  class="form-control <%= errors.addressDetail ? 'is-invalid' : '' %>">
 
+               <% if (errors.addressDetail) { %>
+                  <div class="invalid-feedback">
+                     <%= errors.addressDetail %>
+                  </div>
+                  <% } %>
             </div>
 
             <div class="form-group">
