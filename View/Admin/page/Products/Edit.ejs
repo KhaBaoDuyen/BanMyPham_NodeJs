@@ -1,0 +1,204 @@
+<div id="content-wrapper" class="d-flex flex-column ">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Sửa sản phẩm</li>
+        </ol>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card mb-4">
+
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Form Sửa Sản phẩm</h6>
+            </div>
+            <div class="card-body">
+
+              <form action="/admin/product/edit/<%= productDetail.id %>?_method=PATCH" method="POST"
+                enctype="multipart/form-data" class="d-flex justify-content-between col-12">
+                <!-- <input type="hidden" name="_method" value="PATCH"> -->
+                <div class="row">
+                  <div class="form-group col-12">
+                    <label for="name">Tên sản phẩm</label>
+                    <input type="text" class="form-control <%= errors.name ? 'is-invalid' : '' %>" name="name" id="name"
+                      value="<%= productDetail.name %>">
+                    <% if (errors.name) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.name %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="price">Giá sản phẩm</label>
+                    <input type="number" class="form-control <%= errors.price ? 'is-invalid' : '' %>" name="price"
+                      id="price" value="<%= productDetail.price %>">
+                    <% if (errors.price) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.price %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="discount_price">Giảm giá</label>
+                    <input type="number" class="form-control <%= errors.discount_price ? 'is-invalid' : '' %>"
+                      name="discount_price" id="discount_price" value="<%= productDetail.discount_price %>">
+                    <% if (errors.discount_price) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.discount_price %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="discount_price">Số lượng kho</label>
+                    <input type="number" class="form-control <%= errors.stock ? 'is-invalid' : '' %>" name="stock"
+                      id="stock" value="<%= productDetail.stock %>">
+                    <% if (errors.stock) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.stock %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="id_categogy">Danh mục sản phẩm</label>
+                    <select class="form-control <%= errors.category_id ? 'is-invalid' : '' %>" name="category_id"
+                      id="category_id">
+                      <% categoryList.forEach(category=> { %>
+                        <option value="<%= category.id %>" <%=category.id===productDetail.category_id ? 'selected' : ''
+                          %>>
+                          <%= category.name %>
+                        </option>
+                        <% }); %>
+                    </select>
+                    <% if (errors.category_id) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.category_id %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="status">Trạng thái</label>
+                    <select class="form-control" name="status" id="status">
+                      <option value="1" <%=productDetail.status==1 ? 'selected' : '' %>>Hiển thị</option>
+                      <option value="0" <%=productDetail.status==0 ? 'selected' : '' %>>Ẩn</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label for="weight">Cân nặng</label>
+                    <input type="text" class="form-control <%= errors.weight ? 'is-invalid' : '' %>" name="weight"
+                      id="weight" value="<%= productDetail.weight %>">
+                    <% if (errors.weight) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.weight %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-12">
+                    <label for="short_description">Mô tả ngắn</label>
+                    <textarea class="form-control <%= errors.short_description ? 'is-invalid' : '' %>"
+                      name="short_description" id="short_description"
+                      rows="1"><%- productDetail.short_description %></textarea>
+                    <% if (errors.short_description) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.short_description %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="form-group col-12">
+                    <label for="description">Mô tả dài</label>
+                    <textarea class="form-control <%= errors.description ? 'is-invalid' : '' %>" name="description"
+                      id="description" rows="2" style="height: 200px;"><%- productDetail.description %></textarea>
+                    <% if (errors.description) { %>
+                      <div class="invalid-feedback">
+                        <%= errors.description %>
+                      </div>
+                      <% } %>
+                  </div>
+
+                  <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Sửa sản phẩm</button>
+                  </div>
+                </div>
+
+                <div class="col-5">
+                  <input type="hidden" name="image_old" id="image_old" value="<%= productDetail.images %>">
+                  <div class="mb-3">
+                    <div class="d-flex flex-column align-items-center">
+                      <div class="bg-gray-200 p-3 rounded w-100" style="max-width: 500px;">
+                        <div id="drop-area"
+                          class="drop-area w-100 rounded border border-2 border-primary border-dashed p-4 d-flex flex-column align-items-center justify-content-center text-secondary text-center">
+                          <p class="fs-6 fw-semibold">Kéo và thả để tải ảnh</p>
+                          <span class="my-2 text-muted">hoặc</span>
+                          <label for="images" id="select-files" class="btn btn-primary">Chọn ảnh</label>
+                          <input type="file" name="images" id="images" multiple class="d-none">
+                          <p id="file-names" class="text-muted mt-2">Chưa có ảnh nào được chọn</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="gallery" class="d-flex flex-wrap gap-2 mt-3 w-100 p-3  bg-light overflow-hidden"
+                      style="max-width: 500px;">
+                    </div>
+              </form>
+
+              <div class="form-group col-12">
+                <br>
+                <label for="image">Ảnh sản phẩm</label> <br>
+                <% if (Array.isArray(productDetail.images) && productDetail.images.length> 0) { %>
+                  <% productDetail.images.forEach((image)=> { %>
+                    <div style="display: inline-block; text-align: center; margin: 10px;">
+                      <img src="/assets/uploads/products/<%= image %>" alt="" width="100px">
+                      <form action="/admin/product/delete-image/<%= productDetail.id %>" method="POST">
+                        <input type="hidden" name="image" value="<%= image %>">
+                        <button type="submit" class="btn btn-danger"
+                          onclick="return confirm('Bạn có chắc muốn xóa ảnh này?')">Xóa</button>
+                      </form>
+                    </div>
+                    <% }) %>
+                      <% } else { %>
+                        <p>Không có hình ảnh</p>
+                        <% } %>
+              </div>
+              <!-- End Form Add Product -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!---Container Fluid-->
+</div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>copyright &copy;
+        <script> document.write(new Date().getFullYear()); </script> - developed by
+        <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
+      </span>
+    </div>
+  </div>
+</footer>
+<!-- Footer -->
+</div>
+</div>

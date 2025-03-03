@@ -1,0 +1,173 @@
+<div id="content-wrapper" class="d-flex flex-column">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
+        </ol>
+      </div>
+
+      <!-- Row -->
+      <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
+            </div>
+            <ul class="nav nav-tabs m-2">
+              <li class="nav-item">
+                <a class="nav-link <%= activeTab === 1 ? 'active bg-warning text-white' : '' %>" href="?tab=1">Chờ xác
+                  nhận</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= activeTab === 2 ? 'active bg-info text-white' : '' %>" href="?tab=2">Đang
+                  giao</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= activeTab === 3 ? 'active bg-success text-white' : '' %>" href="?tab=3">Đã
+                  giao</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= activeTab === 4 ? 'active bg-danger text-white' : '' %>" href="?tab=4">Đã hủy</a>
+              </li>
+            </ul>
+
+
+            <div class="table-responsive p-3">
+
+              <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Id</th>
+                    <th>Tên tài khoản</th>
+                    <th>Trạng thái thanh toán </th>
+                    <th>Phương thức thanh toán</th>
+                    <th>Giá trị</th>
+                    <th>Ngày đặt</th>
+                    <th>Khác</th>
+                  </tr>
+                </thead>
+                <tfoot class="thead-light">
+                  <tr>
+                    <th>Id</th>
+                    <th>Tên tài khoản</th>
+                    <th>Trạng thái thanh toán </th>
+                    <th>Phương thức thanh toán</th>
+                    <th>Giá trị</th>
+                    <th>Ngày đặt</th>
+                    <th>Khác</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <% if (orders.length> 0) { %>
+                    <% orders.forEach((order, index)=> { %>
+                      <% if (order.is_deleted===0) { %>
+                        <tr>
+                          <td>
+                            <%= order.id %>
+                          </td>
+                          <td>
+                            <%= order.user ? order.user.name : "Không có dữ liệu" %>
+                          </td>
+                          <td>
+                   
+                            <% if (order.payment_status==1) { %>
+                              <span class="badge bg-success text-white">Đã thanh toán</span>
+                              <% } else if (order.payment_status==2) { %>
+                                <span class="badge bg-danger text-white">Đã hoàn tiền</span>
+                                <% } else { %>
+                                  <span class="badge bg-warning text-white">Chưa thanh toán</span>
+                                  <% } %>
+                    
+
+                          </td>
+                          <td>
+                            <%= order.address %>
+                          </td>
+                          <td>
+                            <%= formatCurrency(order.total) %>
+                          </td>
+                          <td>
+                            <%= order.date %>
+                          </td>
+                          <td>
+                            <% if (order.status==1) { %>
+                              <a href="/admin/order/update/<%= order.id %>" class="btn btn-sm btn-primary">Sửa</a>
+                              <a href="#" class="btn btn-sm btn-danger fail"
+                                onclick="openCancelModal('<%= order.id %>')">Hủy</a>
+                              <% } else if (order.status==0) { %>
+                                <a href="/admin/order/update/<%= order.id %>" class="btn btn-sm btn-info">Xem</a>
+                                <a href="#" class="btn btn-sm btn-danger"
+                                  onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</a>
+                                <% } else { %>
+                                  <a href="/admin/order/update/<%= order.id %>" class="btn btn-sm btn-info">Xem</a>
+                                  <% } %>
+                          </td>
+                        </tr>
+                        <% } %> 
+                          <% }); %> 
+                            <% } else { %>
+                              <tr>
+                                <td colspan="7" class="text-center">Không có đơn hàng nào.</td>
+                              </tr>
+                              <% } %>
+                </tbody>
+
+              </table>
+
+              <!--  Hủy Đơn -->
+              <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="cancelModalLabel">Lý do hủy đơn</h5>
+                    </div>
+                    <form id="cancelForm" method="POST">
+                      <div class="modal-body">
+                        <input type="hidden" name="orderId" id="orderIdInput">
+                        <input type="hidden" name="status" value="0">
+                        <div>
+
+                          <p>Vui lòng chọn lý do hủy đơn:</p>
+                          <div>
+                            <input type="radio" name="note" value="Giao hàng chậm" id="reason1">
+                            <label for="reason1">Giao hàng chậm</label>
+                          </div>
+                          <div>
+                            <input type="radio" name="note" value="Đặt nhầm sản phẩm" id="reason2">
+                            <label for="reason2">Đặt nhầm sản phẩm</label>
+                          </div>
+                          <div>
+                            <input type="radio" name="note" value="Thay đổi ý định" id="reason3">
+                            <label for="reason3">Thay đổi ý định</label>
+                          </div>
+                          <div>
+                            <input type="radio" name="note" value="Tìm thấy giá tốt hơn" id="reason4">
+                            <label for="reason4">Tìm thấy giá tốt hơn</label>
+                          </div>
+                          <div>
+                            <input type="radio" name="note" value="Khác" id="reason5">
+                            <label for="reason5">Khác...</label>
+                          </div>
+
+                          <!-- Textarea nhập lý do khác -->
+                          <textarea id="customReason" name="customReason" class="form-control mt-2"
+                            placeholder="Nhập lý do..." style="display: none;"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>

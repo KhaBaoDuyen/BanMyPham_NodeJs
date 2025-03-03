@@ -1,0 +1,97 @@
+<!-- View/Client/Page/Cart/thank.ejs -->
+<main class="col-10 m-auto thankyou d-flex bg-light">
+   <div class="d-flex">
+      <div class="col-7 d-flex flex-column">
+         <div class="">
+            <p>Cảm ơn bạn đã đặt hàng tại website của chúng tôi. <br>
+               Thông tin đơn hàng của bạn đã được gửi đến email của bạn.</p>
+            <p>Email xác nhận đã được gửi đến địa chỉ: <%= orderData.order.email || 'example@example.com' %>
+            </p>
+            <div class="flex-column justify-content-center align-items-center d-flex text-center box-camon ">
+               <img src="/public/assets/Client/image/icon/receipt.png" alt="">
+               <h3 class="mt-2">Thanh toán thành công</h3>
+            </div>
+            <h6>Mã đơn hàng: <%= orderData.order.id %>
+            </h6>
+            <h6>Ngày đặt hàng: <%= new Date(orderData.order.createdAt).toLocaleDateString('vi-VN') %>
+            </h6>
+         </div>
+
+         <div class="d-flex justify-content-between align-items-end">
+            <span class="col-8">
+               <p class="text-justify">
+                  Xin chào, <br>
+                  Đây là một thông báo xác nhận đơn hàng của khách hàng <%= orderData.order.name %>.
+                     Đơn hàng đã được đặt thành công và sẽ sớm được giao đến địa chỉ của khách hàng.
+                     Khách hàng có thể theo dõi đơn hàng của mình thông qua tài khoản cá nhân hoặc liên kết được gửi qua
+                     email.
+               </p>
+            </span>
+            <a class="tieptucmuahang" href="/">Tiếp tục mua hàng</a>
+         </div>
+      </div>
+
+      <div class="col-5">
+         <h3 style="color: var(--color-price);">Thông tin giao hàng</h3>
+         <table class="bg-transparent table-custom bg-light">
+            <thead>
+               <tr>
+                  <th scope="row">Tên người nhận:</th>
+                  <td>
+                     <%= orderData.order.name %>
+                  </td>
+               </tr>
+               <tr>
+                  <th scope="row">Số điện thoại:</th>
+                  <td>
+                     <%= orderData.order.phone %>
+                  </td>
+               </tr>
+               <tr>
+                  <th scope="row">Địa chỉ:</th>
+                  <td>
+                     <%= orderData.order.address %>
+                  </td>
+               </tr>
+               <tr>
+                  <th scope="row">Vận chuyển:</th>
+                  <td>
+                    Giao hàng nhanh <%= orderData.order.priceShipping %>
+                  </td>
+               </tr>
+               <tr>
+                  <th scope="row">Thanh toán:</th>
+                  <td>
+                     <%= orderData.order.pay===1 ? 'Thanh toán khi nhận hàng' : (orderData.order.pay===2
+                        ? 'Thanh toán qua VNPay' : 'Phương thức không xác định' ) %>
+                  </td>
+               </tr>
+            </thead>
+            <tbody class="text-left border-top mb-3">
+               <% orderData.cart.forEach(item=> { %>
+                  <tr>
+                     <td><img width="50px"
+                           src="/public/uploads/products/<%= item.product.images || 'product_image.jpg' %>" alt=""></td>
+                     <td>
+                        <%= item.product.name %><br>
+                     </td>
+                     <td>x<%= item.quantity %>
+                     </td>
+                     <td class="price">
+                        <%= (item.product.discount_price || item.product.price).toLocaleString('vi-VN') %>đ
+                     </td>
+                  </tr>
+                  <% }) %>
+            </tbody>
+            <tfoot>
+               <tr style="border-top: 2px solid var(--color-price);">
+                  <th scope="row" style="font-size: larger; color: var(--color-price);">Tổng đơn:</th>
+                  <td class="fw-bold" style="font-size: larger;">
+                     <%= orderData.totalPrice.toLocaleString('vi-VN') %> đ
+                  </td>
+               </tr>
+            </tfoot>
+         </table>
+      </div>
+   </div>
+</main>

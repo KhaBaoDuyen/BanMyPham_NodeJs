@@ -1,0 +1,34 @@
+{
+  "list": [
+    {
+      "id": "2",
+      "title": "Banana juice 456 ",
+      "note": "It's best to use fresh bananas in this Banana Juice recipe, unless you are looking for more of a smoothie consistency that you get from frozen bananas.",
+      "image": "NaiChuoi.png"
+    },
+    {
+      "id": "b846",
+      "title": "Kha Thị Bảo Duyên 123",
+      "note": "Kha thị bảo duyên ",
+      "image": "cam-my.jpg"
+    },
+    {
+      "id": "6743",
+      "title": "Ăn lê đi ngon ngon",
+      "note": "mlem mlem",
+      "image": "le.jpg"
+    },
+    {
+      "id": "5b9a",
+      "title": "Ăn lê đi ngon ngon",
+      "note": "ngon ngon",
+      "image": "le.jpg"
+    },
+    {
+      "id": "def5",
+      "title": "baoduyen",
+      "note": "wd19301 : js nâng cao",
+      "image": "cam-my.jpg"
+    }
+  ]
+}

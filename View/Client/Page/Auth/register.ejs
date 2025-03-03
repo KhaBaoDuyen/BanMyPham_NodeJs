@@ -1,0 +1,37 @@
+<body>
+    <div class="Page-login">
+        <div class="container" id="container" class="rounded-3">
+            <form action="/resgister" method="POST" class=" d-flex  col-12">
+                <h2>Tạo tài khoản</h2>
+                <div class="w-100 p-2">
+                    <input type="text" placeholder="Tên" id="name" name="name" value="">
+                    <% if (typeof errors !=='undefined' && errors.name) { %>
+                        <span style="color: red;">
+                            <%= errors.name %>
+                        </span>
+                        <% } %>
+                </div>
+
+                <div class="w-100 p-2">
+                    <input type="text" placeholder="Email" id="email" name="email" class="" value="">
+                    <% if (typeof errors !=='undefined' && errors.email) { %>
+                        <span style="color: red;" class="p-0 m-0">
+                            <%= errors.email %>
+                        </span>
+                        <% } %>
+                </div>
+
+                <div class="w-100 p-2 text-left">
+                    <input type="password" placeholder="Password" id="password" name="password" class="">
+                    <% if (typeof errors !=='undefined' && errors.password) { %>
+                        <span style="color: red;">
+                            <%= errors.password %>
+                        </span>
+                        <% } %>
+                </div>
+                <a href="/login">Quay về trang Đăng nhập</a>
+                <button type="submit" class="button ">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+</body>

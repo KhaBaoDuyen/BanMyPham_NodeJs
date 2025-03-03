@@ -1,0 +1,220 @@
+<div class="checkout-page col-10 m-auto" id="checkout">
+   <form action="/check" method="post" class="container container_checkout m-auto">
+      <input type="hidden" name="method" value="POST">
+
+      <div class="content-right col-12 mb-3">
+         <div class="content1">
+            <table>
+               <thead class="text-center">
+                  <tr>
+                     <th></th>
+                     <th colspan="2">Sản phẩm</th>
+                     <th>Đơn giá</th>
+                     <th>Số lượng</th>
+                     <th>Thành tiền</th>
+                  </tr>
+               </thead>
+               <% if (user && user.id) { %>
+                  <input type="hidden" name="user_id" value="<%= user.id %>">
+                  <% } else { %>
+                     <input type="hidden" name="user_id" value="0">
+                     <% } %>
+
+                        <tbody class="text-center">
+                           <% if (cart && cart.length> 0) { %>
+                              <% let totalPrice=0; let totalWeight=0; %>
+
+                                 <% cart.forEach((item, index)=> {
+                                    let productPrice = item.product ? (item.product.discount_price ?
+                                    item.product.discount_price
+                                    : item.product.price) : 0;
+                                    let itemTotal = productPrice * item.quantity;
+                                    totalPrice += itemTotal;
+
+                                    let productWeight = item.product ? item.product.weight || 0 : 0;
+                                    totalWeight += productWeight * item.quantity;
+                                    %>
+
+                                    <tr>
+                                       <td>
+                                          <%= index + 1 %>
+                                       </td>
+                                       <td width="10%" class="p-2">
+                                          <% if (item.product && item.product.images && item.product.images[0]) { %>
+                                             <img src="/assets/uploads/Products/<%= item.product.images[0] %>"
+                                                alt="Lỗi ảnh" height="100%">
+                                             <% } else { %>
+                                                <img src="/assets/uploads/Products/default-image.jpg" alt="Ảnh mặc định"
+                                                   height="100%">
+                                                <% } %>
+                                       </td>
+                                       <td width="230px" class="p-1">
+                                          <span>
+                                             <%= item.product ? item.product.name : 'Sản phẩm không tồn tại' %>
+                                          </span>
+                                       </td>
+                                       <td>
+                                          <%= formatCurrency(productPrice) %>
+                                       </td>
+                                       <td>
+                                          <%= item.quantity %>
+                                       </td>
+                                       <td>
+                                          <%= formatCurrency(itemTotal) %>
+                                       </td>
+                                    </tr>
+
+                                    <% }) %>
+
+                        </tbody>
+
+            </table>
+         </div>
+      </div>
+
+      <div class="content-left col-12 row m-auto">
+         <h3>Địa chỉ nhận hàng</h3>
+         <div class="col-7 row">
+            <div class="form-group col-6">
+               <label for="name">Tên</label>
+               <input type="text" name="name" id="name" class="form-control" value="">
+               <span class="error-message text-danger" id="error-name"></span>
+            </div>
+
+            <div class="form-group col-6">
+               <label for="phone">Số điện thoại</label>
+               <input type="text" placeholder="Vui lòng nhập số điện thoại" name="phone" id="phone" class="form-control"
+                  value="">
+               <span class="error-message text-danger" id="error-phone"></span>
+            </div>
+
+            <div class="form-group">
+               <label for="email">Email</label>
+               <input type="text" placeholder="Vui lòng nhập địa chỉ email" name="email" id="email" class="form-control"
+                  value="">
+               <span class="error-message text-danger" id="error-email"></span>
+            </div>
+
+            <div class="form-group col-4">
+               <label for="province">Tỉnh/Thành phố</label>
+               <select id="province" class="form-control" name="province">
+                  <option value="">Chọn Tỉnh/Thành phố</option>
+               </select>
+               <span class="error-message text-danger" id="error-province"></span>
+            </div>
+
+            <div class="form-group col-4">
+               <label for="district">Quận/Huyện</label>
+               <select id="district" class="form-control" name="district" disabled>
+                  <option value="">Chọn Quận/Huyện</option>
+               </select>
+               <span class="error-message text-danger" id="error-district"></span>
+            </div>
+
+            <div class="form-group col-4">
+               <label for="ward">Phường/Xã</label>
+               <select id="ward" class="form-control" name="ward" disabled>
+                  <option value="">Chọn Phường/Xã</option>
+               </select>
+               <span class="error-message text-danger" id="error-ward"></span>
+            </div>
+
+
+            <div class="form-group">
+               <label for="address">Địa chỉ cụ thể</label>
+               <input type="text" placeholder="Nhập số nhà, đường..." name="addressDetail" id="addressDetail"
+                  class="form-control">
+               <input type="" placeholder="" name="address" id="address" class="m-0 p-0 border-0 bg-white" value="">
+
+            </div>
+
+            <div class="form-group">
+               <label for="note">Ghi chú</label>
+               <textarea placeholder="Ghi chú" name="note"></textarea>
+            </div>
+         </div>
+
+         <div class="payment-method col-5 d-flex flex-column justify-content-between">
+            <h5 class="text-black "><b> Tóm tắt đơn hàng</b></h5>
+
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th class="text-left">Nội dung</th>
+                     <th class="text-left">Giá trị</th>
+                  </tr>
+               </thead>
+               <tbody>
+
+                  <tr>
+                     <td class="text-left">Tổng tiền hàng:</td>
+                     <td class="text-left">
+                        <input type="text" id="total" value="<%= formatCurrency(totalPrice) %>"
+                           class="border-0 w-50 m-0 p-0" disabled>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="text-left">Tổng khối lượng đơn hàng:</td>
+                     <td class="text-left d-flex">
+                        <input type="text" id="weight" value="<%= totalWeight %>" class="border-0 w-25 p-0 m-0"
+                           disabled> <span>gram</span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="text-left">Đơn vị vận chuyển:</td>
+                     <td class="text-left d-flex">
+                        <span>Giao hàng nhanh</span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="text-left">Phí vận chuyển:</td>
+                     <td class="text-left">
+                        <span id="priceShipping">Đang tính...</span>
+                     </td>
+                  </tr>
+                  <tr class=" ">
+                     <td class="text-left"><b>Tổng thanh toán:</b></td>
+                     <td class="text-left"><b><input type="text" id="finalTotal" value=""
+                              class="bg-white border-0 p-0 m-0" placeholder="Đang tính..." name="finalTotal"
+                              readonly></b></td>
+                  </tr>
+               </tbody>
+            </table>
+
+
+
+            <div>
+               <label for="payment-method" class="form-label fw-bold">Phương thức thanh toán:</label>
+               <!-- Thanh toán khi nhận hàng -->
+               <div class="mb-1">
+                  <label class="d-inline-flex align-items-center">
+                     <input type="radio" alt="cod" name="iCheck" class="iCheck iradio_flat-blue me-2" value="1" checked
+                        style="width: max-content;">
+                     Thanh toán khi nhận hàng
+                  </label>
+               </div>
+
+               <!-- Ví điện tử -->
+               <div class="mb-1">
+                  <label class="d-inline-flex align-items-center">
+                     <input type="radio" alt="cod" name="iCheck" class="iCheck iradio_flat-blue me-2" value="2">
+                     Ví
+                     <img src="/assets/Client/image/icon/OIP.jpg" alt="" class="ms-2"
+                        style="width: 54px; height: 24px;">
+                  </label>
+               </div>
+            </div>
+            <hr>
+
+
+            <div class="thanhtoan">
+               <div class="d-flex justify-content-end align-items-center">
+                  <!-- <a href="/thank" class="btn btn-primary" name="redirect">Thanh toán</a> -->
+                  <button type="submit" class="btn btn-primary" name="redirect">Thanh toan</button>
+               </div>
+            </div>
+         </div>
+         <% } %>
+      </div>
+   </form>
+</div>

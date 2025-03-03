@@ -1,0 +1,134 @@
+<div id="content-wrapper" class="d-flex flex-column ">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Sửa đơn hàng</li>
+        </ol>
+      </div>
+
+
+      <div class="row">
+        <!-- Form Add Product -->
+        <div class="col-lg-8 m-auto">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Form sửa đơn hàng</h6>
+            </div>
+            <div class="card-body">
+
+              <form action="/admin/order/update/<%= orders.id%>?_method=PATCH" method="POST" class="  col-12">
+                <table class="table table-bordered">
+                  <thead class="bg-primary text-white">
+                    <tr>
+                      <th>Thông tin</th>
+                      <th>Chi tiết</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Tên khách hàng</strong></td>
+                      <td>
+                        <%= user.name %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Giá trị đơn hàng</strong></td>
+                      <td>
+                        <%= orders.total.toLocaleString() %> VNĐ
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Ngày đặt</strong></td>
+                      <td>
+                        <%= orders.createdAt %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Ghi chú</strong></td>
+                      <td>
+                        <textarea class="form-control border-0 p-0" name="note" id="note"
+                          rows="2"><%= orders.note %></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Địa chỉ giao hàng</strong></td>
+                      <td>
+                        <textarea class="form-control border-0 p-0 bg-white" name="address" id="address" rows="1"
+                          disabled><%= orders.address %></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Trạng thái đơn hàng</strong></td>
+                      <td>
+                        <% if (orders.status !==3 && orders.status !==0) { %>
+                          <select class="form-control" name="status" id="status">
+                            <option value="1" <%=orders.status===1 ? "selected" : "" %>>Đang chuẩn bị hàng</option>
+                            <option value="2" <%=orders.status===2 ? "selected" : "" %>>Đang giao hàng</option>
+                            <option value="3" <%=orders.status===3 ? "selected" : "" %>>Hoàn thành</option>
+                          </select>
+                          <% } else if (orders.status===3) { %>
+                            <strong>Đơn hàng đã hoàn thành</strong>
+                            <% } else { %>
+                              <strong>Đơn hàng đã hủy</strong>
+                              <% } %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="form-group mt-3">
+                  <label for="products"><strong>Danh sách sản phẩm</strong></label>
+                  <table class="table table-bordered text-center">
+                    <thead class="bg-primary text-white">
+                      <tr>
+                        <th>STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% let index=1 %>
+                        <% for (let product of products) { %>
+                          <tr>
+                            <td>
+                              <%= index++ %>
+                            </td>
+                            <td>
+                              <%= product.name %>
+                            </td>
+                            <td>
+                              <%= product.quantity %>
+                            </td>
+                            <td>
+                              <%= formatCurrency(product.price) %>
+                            </td>
+                            <td>
+                              <%= formatCurrency(product.quantity * product.price) %>
+                            </td>
+                          </tr>
+                          <% } %>
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <% if (orders.status !==3 && orders.status !==0) { %>
+                  <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary px-4 py-2 w-100">
+                      Cập nhật đơn hàng
+                    </button>
+                  </div>
+                  <% } %>
+
+              </form>

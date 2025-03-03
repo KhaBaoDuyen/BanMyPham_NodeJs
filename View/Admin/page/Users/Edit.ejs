@@ -1,0 +1,97 @@
+<!-- Topbar -->
+
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+      <li class="breadcrumb-item">Bảng</li>
+      <li class="breadcrumb-item active" aria-current="page">Sửa tài khoản</li>
+    </ol>
+  </div>
+
+
+  <div class="row">
+    <!-- Form Add Product -->
+    <div class="col-lg-8 m-auto">
+      <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary"> Sửa tài khoản</h6>
+        </div>
+        <div class="card-body">
+          <form action="/admin/user/update/<%= u.id%>?_method=PATCH" method="POST" enctype="multipart/form-data"
+            class="d-flex justify-content-between col-12">
+
+            <div class="row">
+              <div class="form-group col-3 border-2 m-auto" style="">
+                <img width="100%" src="/assets/uploads/users/<%= u.image %>" alt="ảnh người dùng" class="m-auto">
+              </div>
+              <div class="form-group col-12">
+                <label for="image">Ảnh người dùng</label>
+                <input type="file" class="form-control" name="image" id="image" accept="image/*">
+              </div>
+              <div class="form-group col-12">
+                <label for="name">Tên tài khoản</label>
+                <input type="text" class="form-control" name="name" id="name" value="<%= u.name%>">
+              </div>
+
+              <div class="form-group col-6">
+                <label for="role">Vai trò</label>
+                <select class="form-control" name="role" id="role">
+                  <option value="0" <%=u.role===0 ? 'selected' : '' %>>Quản lý</option>
+                  <option value="1" <%=u.role===1 ? 'selected' : '' %>>Người dùng</option>
+                </select>
+              </div>
+
+              <div class="form-group col-6">
+                <label for="status">Trạng thái</label>
+                <select class="form-control" name="status" id="status">
+                  <option value="0" <%=u.status===1 ? 'selected' : '' %>>Hoạt động</option>
+                  <option value="1" <%=u.status===0 ? 'selected' : '' %>>Khóa</option>
+                </select>
+              </div>
+
+              <div class="form-group col-6">
+                <label for="phone">Số điện thoại</label>
+                <input type="text" class="form-control" name="phone" id="phone" value="<%= u.phone%>">
+              </div>
+
+              <div class="form-group col-6">
+                <label for="password">Mật khẩu</label>
+                <input type="password" class="form-control" name="password" id="password" value="<%= u.password%>">
+              </div>
+
+              <div class="form-group col-12">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" id="email" value="<%= u.email %>">
+              </div>
+
+              <div class="col-6">
+                <button type="submit" class="btn btn-primary">Sửa tài khoản</button>
+              </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End Form Add Product -->
+  </div>
+
+  <!---Container Fluid-->
+</div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>copyright &copy;
+        <script> document.write(new Date().getFullYear()); </script> - developed by
+        <b><a href="https://indrijunanda.gitlab.io/" target="_blank">Kha Thi Bao Duyen</a></b>
+      </span>
+    </div>
+  </div>
+</footer>
+<!-- Footer -->
+</div>
+</div>

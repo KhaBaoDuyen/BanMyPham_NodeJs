@@ -1,0 +1,108 @@
+<div id="content-wrapper" class="d-flex flex-column">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+        </ol>
+      </div>
+
+      <!-- Row -->
+      <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
+            </div>
+            <div class="table-responsive p-3">
+              <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Id</th>
+                    <th style="width:250px;">Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Giá </th>
+                    <th>Giá giảm</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th>Khác</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Id</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Giá </th>
+                    <th>Giá giảm</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th>Khác</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <% products.forEach((p, index)=> { %>
+                    <% if (p.is_deleted===0) { %>
+                      <tr>
+                        <td>
+                          <%= (currentPage - 1) * 10 + index + 1 %>
+                        </td>
+                        <td>
+                          <%= p.name %>
+                        </td>
+                        <td>
+                          <% if (p.images && Array.isArray(p.images) && p.images.length> 0) { %>
+                            <img src="/assets/uploads/Products/<%= p.images[0] %>" alt="" width="100px">
+                            <% } else { %>
+                              <p>Không có hình ảnh</p>
+                              <% } %>
+                        </td>
+
+                        <td>
+                          <%= formatCurrency(p.price) %>
+                        </td>
+                        <td class="price-color-org fw-bold">
+                          <strong>
+                            <% if (p.discount_price && p.discount_price> 0) { %>
+                              <%= formatCurrency(p.discount_price) %>
+                                <% } %>
+                          </strong>
+                        </td>
+
+                        <td>
+                          <%= p.category ? p.category.name : 'Không có danh mục' %>
+                        </td>
+
+                        <% if (p.status===1) { %>
+                          <td>
+                            <p class="bg-warning text-white text-center w-auto rounded">Hiển thị</p>
+                          </td>
+                          <% } else { %>
+                            <td>
+                              <p class="bg-danger text-white text-center w-auto rounded">Ẩn</p>
+                            </td>
+                            <% } %>
+
+                              <td class="d-flex row">
+                                <a href="/admin/product/edit/<%= p.id %>" class="btn btn-sm btn-primary col-6">Sửa</a>
+                                <form action="/admin/product/isDelete/<%= p.id %>?_method=PATCH" method="post"
+                                  class="col-6">
+                                  <button class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</button>
+                                </form>
+                              </td>
+                      </tr>
+                      <% } %>
+                        <% }); %>
+                </tbody>
+
+            </div>
+            </table>

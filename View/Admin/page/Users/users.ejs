@@ -1,0 +1,98 @@
+<div id="content-wrapper" class="d-flex flex-column">
+  <div id="content">
+    <!-- TopBar -->
+
+    <!-- Topbar -->
+    <!-- Container Fluid-->
+    <div class="container-fluid" id="container-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Danh sách </h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+          <li class="breadcrumb-item">Bảng</li>
+          <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
+        </ol>
+      </div>
+
+      <!-- Row -->
+      <div class="row">
+        <!-- DataTable with Hover -->
+        <div class="col-lg-12">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản</h6>
+            </div>
+            <div class="table-responsive p-3">
+              <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Id</th>
+                    <th>Tên tài khoản</th>
+                    <th>Avatar</th>
+                    <th>Email </th>
+                    <th>Số điện thoại</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th>Khác</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Id</th>
+                    <th>Tên tài khoản</th>
+                    <th>Avatar</th>
+                    <th>Email </th>
+                    <th>Số điện thoại</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th>Khác</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <% for (let u of users) { %>
+                    <tr>
+                      <td>
+                        <%= u.id %>
+                      </td>
+                      <td>
+                        <%= u.name %>
+                      </td>
+                      <td><img src="/assets/uploads/users/<%= u.image %>" alt="anh san pham" width="60px"
+                          class="m-auto"></td>
+                      <td>
+                        <%= u.email %>
+                      </td>
+                      <td>
+                        <%= u.phone %>
+                      </td>
+                      <% if (u.role===0) { %>
+                        <td>
+                          <p class="bg-danger text-white p-1 rounded text-center">Quản lý</p>
+                        </td>
+                        <% } else { %>
+                          <td>
+                            <p class="bg-success text-white p-1 rounded text-center">Người dùng</p>
+                          </td>
+                          <% } %>
+
+                            <% if (u.status===1) { %>
+                              <td>
+                                <p class="bg-warning text-white text-center  w-auto rounded">Hoạt động</p>
+                              </td>
+                              <% } else { %>
+                                <td>
+                                  <p class="bg-danger text-white text-center w-auto rounded">Khóa</p>
+                                </td>
+                                <% } %>
+                                  <td class="d-flex ">
+                                    <a href="/admin/user/update/<%=u.id%>" class="btn btn-sm btn-primary">Sửa</a>
+                                    <form action="/admin/user/delete/<%= u.id %>?_method=delete" method="post"
+                                      class="col-6">
+                                      <button class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục: <%= u.name %> không?')">Xóa</button>
+                                    </form>
+                                  </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>

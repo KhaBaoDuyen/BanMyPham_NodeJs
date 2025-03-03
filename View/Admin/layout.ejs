@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <link href="img/logo/logo.png" rel="icon">
+   <title>
+      <%= title %>
+   </title>
+   <link href="/assets/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+   <link href="/assets/Admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+   <link href="/assets/Admin/css/ruang-admin.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+   <% if (success.length> 0) { %>
+      <div id="flash-success" class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+         <%= success %>
+      </div>
+      <% } %>
+
+         <% if (error.length> 0) { %>
+            <div id="flash-error" class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+               <%= error %>
+            </div>
+            <% } %>
+
+               <div id="wrapper">
+                  <!-- Sidebar -->
+                  <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                        <div class="sidebar-brand-icon">
+                           <img src="/assets/Client/image/icon/Logo.png">
+                        </div>
+                        <!-- <div class="sidebar-brand-text mx-3">RuangAdmin</div> -->
+                     </a>
+                     <hr class="sidebar-divider my-0">
+                     <li class="nav-item active">
+                        <a class="nav-link" href="/admin/list">
+                           <i class="fas fa-fw fa-tachometer-alt"></i>
+                           <span>Dashboard</span></a>
+                     </li>
+                     <hr class="sidebar-divider">
+                     <div class="sidebar-heading">
+                        Features
+                     </div>
+
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
+                           aria-expanded="true" aria-controls="collapseProduct">
+                           <i class="fas fa-fw fa-box"></i>
+                           <span>Quản lý sản phẩm</span>
+                        </a>
+                        <div id="collapseProduct" class="collapse" aria-labelledby="headingProduct"
+                           data-parent="#accordionSidebar">
+                           <div class="bg-white py-2 collapse-inner rounded">
+                              <h6 class="collapse-header">Sản phẩm</h6>
+                              <a class="collapse-item" href="/admin/product/list">Danh sách</a>
+                              <a class="collapse-item" href="/admin/product/create">Thêm mới</a>
+                           </div>
+                        </div>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
+                           aria-expanded="true" aria-controls="collapseCategory">
+                           <i class="fas fa-fw fa-th-list"></i>
+                           <span>Quản lý danh mục</span>
+                        </a>
+                        <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
+                           data-parent="#accordionSidebar">
+                           <div class="bg-white py-2 collapse-inner rounded">
+                              <h6 class="collapse-header">Danh mục</h6>
+                              <a class="collapse-item" href="/admin/category/list">Danh sách</a>
+                              <a class="collapse-item" href="/admin/category/create">Thêm mới</a>
+                           </div>
+                        </div>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                           aria-expanded="true" aria-controls="collapseUser">
+                           <i class="fas fa-fw fa-users"></i>
+                           <span>Quản lý tài khoản</span>
+                        </a>
+                        <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+                           data-parent="#accordionSidebar">
+                           <div class="bg-white py-2 collapse-inner rounded">
+                              <h6 class="collapse-header">Tài khoản</h6>
+                              <a class="collapse-item" href="/admin/user/list"> Danh sách</a>
+                           </div>
+                        </div>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder"
+                           aria-expanded="true" aria-controls="collapseOrder">
+                           <i class="fas fa-fw fa-truck"></i>
+                           <span>Quản lý đơn hàng</span>
+                        </a>
+                        <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder"
+                           data-parent="#accordionSidebar">
+                           <div class="bg-white py-2 collapse-inner rounded">
+                              <h6 class="collapse-header">Đơn hàng</h6>
+                              <a class="collapse-item  " href="/admin/order/list">Danh sách đơn hàng </a>
+                           </div>
+                        </div>
+                     </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDelete"
+                           aria-expanded="true" aria-controls="collapseDelete">
+                          <i class="fas fa-fw fa-trash"></i>
+                           <span>Thùng rác</span>
+                        </a>
+                        <div id="collapseDelete" class="collapse" aria-labelledby="headingOrder"
+                           data-parent="#accordionSidebar">
+                           <div class="bg-white py-2 collapse-inner rounded">
+                              <h6 class="collapse-header">Đơn hàng</h6>
+                              <a class="collapse-item  " href="/admin/order/list">Danh sách đơn hàng </a>
+                           </div>
+                        </div>
+                     </li>
+
+                     <hr class="sidebar-divider">
+
+                     <!-- <div class="version" id="version-ruangadmin"></div> -->
+                  </ul>
+                  <div id="content-wrapper" class="d-flex flex-column ">
+                     <div id="content">
+                        <!-- TopBar -->
+                        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top" style="">
+                           <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                              <i class="fa fa-bars"></i>
+                           </button>
+                           <ul class="navbar-nav ml-auto">
+
+                              <div class="topbar-divider d-none d-sm-block"></div>
+                              <li class="nav-item dropdown no-arrow">
+                                 <% if (user) { %>
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       <img class="img-profile rounded-circle"
+                                          src="/upload/Users/03ebd625cc0b9d636256ecc44c0ea324.jpg"
+                                          style="max-width: 60px">
+                                       <span class="ml-2 d-none d-lg-inline text-white small">
+                                          <%= user.name %>
+                                       </span>
+                                    </a>
+                                    <% }else{ %>
+                                       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <img class="img-profile rounded-circle"
+                                             src="/upload/Users/03ebd625cc0b9d636256ecc44c0ea324.jpg"
+                                             style="max-width: 60px">
+                                          <span class="ml-2 d-none d-lg-inline text-white small">
+                                             Admin
+                                          </span>
+                                       </a>
+                                       <% }%>
+                                          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                             aria-labelledby="userDropdown">
+                                             <div class="dropdown-divider"></div>
+                                             <a class="dropdown-item" href="/logout" data-toggle="modal"
+                                                data-target="#logoutModal">
+                                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Logout
+                                             </a>
+                                          </div>
+                              </li>
+                           </ul>
+                        </nav>
+                        <%- body %>
+                           <!-- Scroll to top -->
+                           <div class="pagination d-flex justify-content-start mt-4">
+                              <% if (typeof totalPages !=="undefined" && totalPages> 1) { %>
+                                 <div class="d-flex justify-content-center mt-3">
+                                    <% if (currentPage> 1) { %>
+                                       <a href="?page=<%= currentPage - 1 %>"
+                                          class="btn btn-sm btn-outline-primary mx-1">← Trang trước</a>
+                                       <% } %>
+
+                                          <% for (let i=1; i <=totalPages; i++) { %>
+                                             <a href="?page=<%= i %>"
+                                                class="btn btn-sm <%= currentPage === i ? 'btn-primary' : 'btn-outline-primary' %> mx-1">
+                                                <%= i %>
+                                             </a>
+                                             <% } %>
+
+                                                <% if (currentPage < totalPages) { %>
+                                                   <a href="?page=<%= currentPage + 1 %>"
+                                                      class="btn btn-sm btn-outline-primary mx-1">Trang sau →</a>
+                                                   <% } %>
+                                 </div>
+                                 <% } %>
+
+
+                           </div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Modal Logout -->
+               <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                           <p>Are you sure you want to logout?</p>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                           <a href="/" class="btn btn-primary">Đăng xuất</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
+
+               </div>
+               <!---Container Fluid-->
+               </div>
+
+               <!-- Footer -->
+               <footer class="sticky-footer bg-white">
+                  <div class="container my-auto">
+                     <div class="copyright text-center my-auto">
+                        <span>copyright &copy;
+                           <script> document.write(new Date().getFullYear()); </script>-
+                           <b><a href="/" target="_blank">Kha Thi Bao Duyen</a></b>
+                        </span>
+                     </div>
+                  </div>
+               </footer>
+               <!-- Footer -->
+               </div>
+               </div>
+
+               <a class="scroll-to-top rounded" href="#page-top">
+                  <i class="fas fa-angle-up"></i>
+               </a>
+               <!-- Footer -->
+
+               <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+               <script>
+                  document.querySelectorAll("#description, #short_description").forEach(textarea => {
+                     ClassicEditor
+                        .create(textarea)
+                        .catch(error => {
+                           console.error("Lỗi CKEditor:", error);
+                        });
+                  });
+               </script>
+
+
+               <script src="/assets/admin/js/createInput.js"></script>
+               <script src="/assets/admin/js/cancel.js"></script>
+
+               <script src="/assets/Admin/vendor/jquery/jquery.min.js"></script>
+               <script src="/assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+               <script src="/assets/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+               <script src="/assets/Admin/js/ruang-admin.min.js"></script>
+               <script src="/assets/Admin/vendor/chart.js/Chart.min.js"></script>
+               <script src="/assets/Admin/js/demo/chart-area-demo.js"></script>
+               <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</body>
+
+</html>

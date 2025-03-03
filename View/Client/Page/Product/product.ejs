@@ -1,0 +1,122 @@
+<section class="product_banner">
+   <div class="box_banner col-10 m-auto d-flex">
+      <div class="product_banner_left col-8  m-0">
+         <div class="title">
+            <p class="title_name">BLOOM</p>
+            <p class="title_slogan">Hơi thở cuộc sống</p>
+         </div>
+
+      </div>
+      <div class="product_banner_right col-4 ">
+         <img src="/assets/Client/image/about/sen3.png" alt width="100%">
+      </div>
+   </div>
+</section>
+
+<section class="count m-auto">
+   <div class="box_total d-flex col-10  row m-auto ">
+
+      <div class="total_product col-3 ">
+         <p class="count_number">200+</p>
+         <p class="count_name"> Sản phẩm</p>
+      </div>
+
+      <div class="total_product col-3 ">
+         <p class="count_number">40+</p>
+         <p class="count_name"> Thương hiệu</p>
+      </div>
+
+      <div class="total_product col-3 ">
+         <p class="count_number">300+</p>
+         <p class="count_name"> Bình luận</p>
+      </div>
+
+      <div class="total_product col-3 ">
+         <p class="count_number">1000+</p>
+         <p class="count_name"> Lượt truy cập</p>
+      </div>
+
+   </div>
+</section>
+
+<main class=" col-10 m-auto d-flex">
+
+   <aside class="col-3">
+      <h4 class="title_brand">Danh mục </h4>
+
+      <div class="brand m-auto">
+         <% for (let calog of categories) { %>
+            <a href="/productByCalog/<%= calog.categoryId %>"
+               class="brand_title d-flex  justify-content-between align-content-center">
+               <h5 class="col-10">
+                  <%= calog.name %>
+               </h5>
+               <p class="count_product col-2">(<%= calog.productsCount %>)</p>
+            </a>
+            <% } %>
+
+      </div>
+   </aside>
+   <article class="col-9">
+      <nav>
+
+         <div class="tune">
+            <div class="tune_icon"> <span class="material-symbols-outlined"> tune </span></div>
+            <div class="tune_down">
+               <li><a href>A-z</a></li>
+               <li><a href>Z-a</a></li>
+            </div>
+         </div>
+      </nav>
+
+      <div class="all_products row">
+         <% for (let p of products) { %>
+            <% if (p.status==1) { %>
+               <a class="card" href="/productDetail/<%= p.id %>">
+
+                  <div class="box_image">
+                     <img class="image" src="/assets/uploads/Products/<%= p.images[0] %>" alt height="100%">
+                  </div>
+
+                  <div class="title">
+                     <% if (p.discount_price && p.discount_price> 0 && p.discount_price < p.price) { %>
+                           <div class="price">
+                              <span>
+                                 <%= formatCurrency(p.discount_price) %>
+                              </span>
+                              <span class="price_sales">
+                                 <%= formatCurrency(p.price) %>
+                              </span>
+                           </div>
+                           <% } else { %>
+                              <div class="price">
+                                 <span>
+                                    <%= formatCurrency(p.price) %>
+                                 </span>
+                              </div>
+                              <% } %>
+
+                                 <h4 class="name_product">
+                                    <%= p.name %>
+                                 </h4>
+                                 <div class="content">
+                                    <%- p.short_description %>
+
+                                 </div>
+                  </div>
+
+                  <% if (p.discount_price && p.discount_price> 0 && p.discount_price < p.price) { %>
+                        <div class="sale">
+                           <%= Math.round(((p.price - p.discount_price) / p.price) * 100) %>%
+                        </div>
+                        <% } %>
+               </a>
+               <% } %>
+                  <% } %>
+
+
+      </div>
+
+   </article>
+
+</main>
